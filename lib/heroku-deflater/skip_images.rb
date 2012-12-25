@@ -9,7 +9,7 @@ module HerokuDeflater
     def call(env)
       status, headers, body = @app.call(env)
       headers = Rack::Utils::HeaderHash.new(headers)
-      if headers['Content-Type'].start_with?('image/')
+      if headers['Content-Type'].to_s.start_with?('image/')
         if headers['Cache-Control'].nil? or headers['Cache-Control'].empty?
           headers['Cache-Control'] = 'no-transform'
         else
