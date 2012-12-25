@@ -16,6 +16,19 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.md"
   ]
+  s.files = [
+    "Gemfile",
+    "Gemfile.lock",
+    "LICENSE.txt",
+    "README.md",
+    "Rakefile",
+    "VERSION",
+    "heroku-deflater.gemspec",
+    "lib/heroku-deflater.rb",
+    "lib/heroku-deflater/deflater.rb",
+    "lib/heroku-deflater/railtie.rb",
+    "lib/heroku-deflater/skip_images.rb"
+  ]
   s.homepage = "http://github.com/romanbsd/heroku-deflater"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
