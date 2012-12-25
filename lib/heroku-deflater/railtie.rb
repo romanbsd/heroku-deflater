@@ -8,5 +8,9 @@ module HerokuDeflater
       app.middleware.insert_before ActionDispatch::Static, Rack::Deflater
       app.middleware.insert_before ActionDispatch::Static, HerokuDeflater::SkipImages
     end
+
+    config.after_initialize do |app|
+      app.config.static_cache_control ||= "public, max-age=86400"
+    end
   end
 end
