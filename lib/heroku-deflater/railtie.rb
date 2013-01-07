@@ -1,5 +1,4 @@
 require 'rack/deflater'
-require 'heroku-deflater/deflater'
 require 'heroku-deflater/skip_images'
 
 module HerokuDeflater

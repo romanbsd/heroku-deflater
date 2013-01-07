@@ -7,7 +7,8 @@ GEM
       git (>= 1.2.5)
       rake
       rdoc
-    json (1.7.5)
+    json (1.7.6)
+    rack (1.4.2)
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
@@ -18,3 +19,4 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jeweler
+  rack (>= 1.4.2)

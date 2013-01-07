@@ -3,8 +3,6 @@
 A simple rack middleware that enables compressing of your assets and application
 responses on Heroku, while not wasting CPU cycles on pointlessly gzipping images.
 
-It also bundles the fix for the nasty Rack::Deflater [bug][1].
-
 ## Installing
 
 Add to your Gemfile:
