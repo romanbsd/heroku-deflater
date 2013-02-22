@@ -8,7 +8,7 @@ GEM
       rake
       rdoc
     json (1.7.7)
-    rack (1.5.2)
+    rack (1.4.5)
     rake (10.0.3)
     rdoc (3.12.1)
       json (~> 1.4)
@@ -19,4 +19,4 @@ PLATFORMS
 DEPENDENCIES
   bundler
   jeweler
-  rack (>= 1.4.2)
+  rack (~> 1.4.5)
