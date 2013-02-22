@@ -7,10 +7,10 @@ GEM
       git (>= 1.2.5)
       rake
       rdoc
-    json (1.7.6)
-    rack (1.4.2)
+    json (1.7.7)
+    rack (1.5.2)
     rake (10.0.3)
-    rdoc (3.12)
+    rdoc (3.12.1)
       json (~> 1.4)
 
 PLATFORMS
