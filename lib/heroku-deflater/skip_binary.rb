@@ -5,11 +5,24 @@ module HerokuDeflater
       @app = app
     end
 
-    WHITELIST = [
-      %r{^text/},
-      'application/javascript',
-      'application/json'
-    ].freeze
+    WHITELIST = %w(
+      application/atom+xml
+      application/javascript
+      aplication/json
+      application/rss+xml
+      application/vnd.ms-fontobject
+      application/x-font-ttf
+      application/xhtml+xml
+      application/xml
+      font/opentype
+      image/svg+xml
+      image/x-icon
+      text/css
+      text/html
+      text/plain
+      text/x-component
+      text/xml
+    ).freeze
 
     def call(env)
       status, headers, body = @app.call(env)
