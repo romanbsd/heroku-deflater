@@ -8,7 +8,11 @@ module HerokuDeflater
     WHITELIST = [
       %r{^text/},
       'application/javascript',
-      %r{^application/json}
+      %r{^application/json},
+      %r{^application/.*?xml},
+      'application/x-font-ttf',
+      'font/opentype',
+      'image/svg+xml'
     ].freeze
 
     def call(env)
