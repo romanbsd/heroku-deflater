@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "heroku-deflater"
-  s.version = "0.4.2"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Roman Shterenzon"]
@@ -27,7 +27,13 @@ Gem::Specification.new do |s|
     "heroku-deflater.gemspec",
     "lib/heroku-deflater.rb",
     "lib/heroku-deflater/railtie.rb",
+    "lib/heroku-deflater/serve_zipped_assets.rb",
     "lib/heroku-deflater/skip_binary.rb",
+    "spec/fixtures/assets/spec.js",
+    "spec/fixtures/assets/spec.js.gz",
+    "spec/fixtures/assets/spec2.js",
+    "spec/fixtures/non-assets/spec.js.gz",
+    "spec/serve_zipped_assets_spec.rb",
     "spec/skip_binary_spec.rb"
   ]
   s.homepage = "http://github.com/romanbsd/heroku-deflater"
