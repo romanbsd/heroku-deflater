@@ -9,10 +9,10 @@ require 'action_dispatch/middleware/static'
 
 module HerokuDeflater
   class ServeZippedAssets
-    def initialize(app, root, assets_path, headers=nil)
+    def initialize(app, root, assets_path, cache_control=nil)
       @app = app
       @assets_path = assets_path.chomp('/') + '/'
-      @file_handler = ActionDispatch::FileHandler.new(root, headers)
+      @file_handler = ActionDispatch::FileHandler.new(root, cache_control)
     end
 
     def call(env)

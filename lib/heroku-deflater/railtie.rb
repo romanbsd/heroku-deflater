@@ -8,7 +8,7 @@ module HerokuDeflater
       app.middleware.insert_before ActionDispatch::Static, Rack::Deflater
       app.middleware.insert_before ActionDispatch::Static, HerokuDeflater::SkipBinary
       app.middleware.insert_before Rack::Deflater, HerokuDeflater::ServeZippedAssets,
-        app.paths['public'].first, app.config.assets.prefix, {'Cache-Control' => app.config.static_cache_control}
+        app.paths['public'].first, app.config.assets.prefix, app.config.static_cache_control
     end
 
     # Set default Cache-Control headers to one week.
