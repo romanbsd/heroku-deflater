@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "heroku-deflater"
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Roman Shterenzon"]
-  s.date = "2013-05-04"
+  s.date = "2013-05-11"
   s.description = "Deflate assets on heroku"
   s.email = "romanbsd@yahoo.com"
   s.extra_rdoc_files = [
