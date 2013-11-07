@@ -12,9 +12,9 @@ describe HerokuDeflater::ServeZippedAssets do
   def app
     @app ||= begin
       root_path = File.expand_path('../fixtures', __FILE__)
-      headers = {'Cache-Control'=>'public, max-age=86400'}
+      cache_control = 'public, max-age=86400'
       mock = lambda { |env| [404, {'X-Cascade' => 'pass'}, []] }
-      described_class.new(mock, root_path, '/assets', headers)
+      described_class.new(mock, root_path, '/assets', cache_control)
     end
   end
 
