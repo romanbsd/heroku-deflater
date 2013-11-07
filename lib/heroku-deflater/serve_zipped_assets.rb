@@ -41,6 +41,7 @@ module HerokuDeflater
             headers['Content-Encoding'] = 'gzip'
             headers['Content-Type'] = Rack::Mime.mime_type(File.extname(env['PATH_INFO']), 'text/plain')
 
+            body.close if body.respond_to?(:close)
             return [status, headers, body]
           end
         end
