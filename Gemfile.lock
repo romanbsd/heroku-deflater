@@ -1,15 +1,44 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    git (1.2.5)
-    jeweler (1.8.4)
+    addressable (2.3.5)
+    builder (3.1.4)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
+    git (1.2.6)
+    github_api (0.10.1)
+      addressable
+      faraday (~> 0.8.1)
+      hashie (>= 1.2)
+      multi_json (~> 1.4)
+      nokogiri (~> 1.5.2)
+      oauth2
+    hashie (2.0.5)
+    highline (1.6.19)
+    httpauth (0.2.0)
+    jeweler (1.8.8)
+      builder
       bundler (~> 1.0)
       git (>= 1.2.5)
+      github_api (= 0.10.1)
+      highline (>= 1.6.15)
+      nokogiri (= 1.5.10)
       rake
       rdoc
-    json (1.7.7)
+    json (1.8.1)
+    jwt (0.1.8)
+      multi_json (>= 1.5)
+    multi_json (1.8.2)
+    multipart-post (1.2.0)
+    nokogiri (1.5.10)
+    oauth2 (0.8.1)
+      faraday (~> 0.8)
+      httpauth (~> 0.1)
+      jwt (~> 0.1.4)
+      multi_json (~> 1.0)
+      rack (~> 1.2)
     rack (1.4.5)
-    rake (10.0.4)
+    rake (10.1.0)
     rdoc (4.0.1)
       json (~> 1.4)
 
