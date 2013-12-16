@@ -28,6 +28,8 @@ module HerokuDeflater
           headers['Cache-Control'] += ', no-transform'
         end
       end
+
+      body.close if body.respond_to?(:close)
       [status, headers, body]
     end
   end
