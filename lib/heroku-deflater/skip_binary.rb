@@ -21,7 +21,7 @@ module HerokuDeflater
       content_type = headers['Content-Type']
       cache_control = headers['Cache-Control'].to_s.downcase
 
-      unless cache_control.include?('no-transform') or WHITELIST.any? { |type| type === content_type }
+      unless cache_control.include?('no-transform') || WHITELIST.any? { |type| type === content_type }
         if cache_control.empty?
           headers['Cache-Control'] = 'no-transform'
         else
