@@ -12,7 +12,7 @@ module HerokuDeflater
     def initialize(app, root, assets_path, cache_control=nil)
       @app = app
       @assets_path = assets_path.chomp('/') + '/'
-      cache_control = { headers: { 'Cache-Control': cache_control } } if Rails::VERSION::MAJOR >= 5 && cache_control.is_a?(String)
+      cache_control = {headers: {'Cache-Control' => cache_control}} if Rails::VERSION::MAJOR >= 5 && cache_control.is_a?(String)
       @file_handler = ActionDispatch::FileHandler.new(root, cache_control)
     end
 
