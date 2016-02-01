@@ -12,9 +12,17 @@ module HerokuDeflater
     end
 
     # Set default Cache-Control headers to one week.
+    CACHE_CONTROL_HEADER = 'public, max-age=604800'.freeze
+
     # The configuration block in config/application.rb overrides this.
-    config.before_configuration do |app|
-      app.config.static_cache_control = 'public, max-age=604800'
+    if Rails.version >= '5.0.0'.freeze
+      config.before_configuration do |app|
+        app.config.public_file_server.headers = { 'Cache-Control' => CACHE_CONTROL_HEADER }
+      end
+    else
+      config.before_configuration do |app|
+        app.config.static_cache_control = CACHE_CONTROL_HEADER
+      end
     end
   end
 end
