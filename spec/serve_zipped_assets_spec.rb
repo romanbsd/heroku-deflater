@@ -1,6 +1,7 @@
 require 'rack/mock'
 require 'rack/static'
 require 'heroku-deflater/serve_zipped_assets'
+require 'heroku-deflater/cache_control_manager'
 
 describe HerokuDeflater::ServeZippedAssets do
   def process(path, accept_encoding = 'compress, gzip, deflate')
@@ -12,9 +13,10 @@ describe HerokuDeflater::ServeZippedAssets do
   def app
     @app ||= begin
       root_path = File.expand_path('../fixtures', __FILE__)
-      cache_control = 'public, max-age=86400'
+      cache_control_manager = HerokuDeflater::CacheControlManager.new(nil)
+      cache_control_manager.stub(:cache_control_headers) { 'public, max-age=86400' }
       mock = lambda { |env| [404, {'X-Cascade' => 'pass'}, []] }
-      described_class.new(mock, root_path, '/assets', cache_control)
+      described_class.new(mock, root_path, '/assets', cache_control_manager)
     end
   end
 
