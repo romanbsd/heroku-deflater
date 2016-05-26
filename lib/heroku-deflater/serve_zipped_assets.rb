@@ -9,11 +9,10 @@ require 'action_dispatch/middleware/static'
 
 module HerokuDeflater
   class ServeZippedAssets
-    def initialize(app, root, assets_path, cache_control=nil)
+    def initialize(app, root, assets_path, cache_control_manager)
       @app = app
       @assets_path = assets_path.chomp('/') + '/'
-      cache_control = {headers: {'Cache-Control' => cache_control}} if Rails::VERSION::MAJOR >= 5 && cache_control.is_a?(String)
-      @file_handler = ActionDispatch::FileHandler.new(root, cache_control)
+      @file_handler = ActionDispatch::FileHandler.new(root, cache_control_manager.cache_control_headers)
     end
 
     def call(env)
