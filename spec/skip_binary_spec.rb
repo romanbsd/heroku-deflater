@@ -15,7 +15,7 @@ describe HerokuDeflater::SkipBinary do
   it "forbids compressing of binary types" do
     %w[application/gzip application/pdf image/jpeg].each do |type|
       headers = process(type)
-      headers['Cache-Control'].to_s.should include('no-transform')
+      expect(headers['Cache-Control'].to_s).to include('no-transform')
     end
   end
 
@@ -23,18 +23,18 @@ describe HerokuDeflater::SkipBinary do
     %w[text/plain text/html application/json application/javascript
     application/rss+xml].each do |type|
       headers = process(type)
-      headers['Cache-Control'].to_s.should_not include('no-transform')
+      expect(headers['Cache-Control'].to_s).not_to include('no-transform')
     end
   end
 
   it "adds to existing headers" do
     headers = process('image/gif', 'Cache-Control' => 'public')
-    headers['Cache-Control'].should eq('public, no-transform')
+    expect(headers['Cache-Control']).to eq('public, no-transform')
   end
 
   it "doesn't add 'no-transform' if it's already present" do
     headers = process('image/gif', 'Cache-Control' => 'public, no-transform')
-    headers['Cache-Control'].should eq('public, no-transform')
+    expect(headers['Cache-Control']).to eq('public, no-transform')
   end
 
 end
