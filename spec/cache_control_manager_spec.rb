@@ -32,13 +32,13 @@ describe HerokuDeflater::CacheControlManager do
     subject { described_class.new(rails_4_app) }
 
     it 'sets max age for static_cache_control config option' do
-      subject.setup_max_age(64800)
-      expect(rails_4_app.config.static_cache_control).to eq('public, max-age=64800')
+      subject.setup_max_age(3_600)
+      expect(rails_4_app.config.static_cache_control).to eq('public, max-age=3600')
     end
 
     it 'cache_control_headers returns cache control option' do
-      subject.setup_max_age(64800)
-      expect(subject.cache_control_headers).to eq('public, max-age=64800')
+      subject.setup_max_age(3_600)
+      expect(subject.cache_control_headers).to eq('public, max-age=3600')
     end
   end
 
@@ -51,13 +51,13 @@ describe HerokuDeflater::CacheControlManager do
     subject { described_class.new(rails_5_app) }
 
     it 'sets max age for public_file_server config option' do
-      subject.setup_max_age(64800)
-      expect(rails_5_app.config.public_file_server.headers['Cache-Control']).to eq('public, max-age=64800')
+      subject.setup_max_age(3_600)
+      expect(rails_5_app.config.public_file_server.headers['Cache-Control']).to eq('public, max-age=3600')
     end
 
     it 'cache_control_headers returns hash cache control headers' do
-      subject.setup_max_age(64800)
-      expect(subject.cache_control_headers).to eq(headers: { 'Cache-Control' =>'public, max-age=64800'})
+      subject.setup_max_age(3_600)
+      expect(subject.cache_control_headers).to eq(headers: { 'Cache-Control' =>'public, max-age=3600'})
     end
   end
 end
