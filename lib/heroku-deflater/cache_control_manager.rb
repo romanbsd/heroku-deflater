@@ -1,9 +1,11 @@
 module HerokuDeflater
   class CacheControlManager
+    DEFAULT_MAX_AGE = '86400'.freeze
     attr_reader :app, :max_age
 
     def initialize(app)
       @app = app
+      @max_age = DEFAULT_MAX_AGE
     end
 
     def setup_max_age(max_age)
@@ -18,7 +20,7 @@ module HerokuDeflater
 
     def cache_control_headers
       if rails_version_5?
-        { headers: { 'Cache-Control' => cache_control } }
+        { 'Cache-Control' => cache_control }
       else
         cache_control
       end
