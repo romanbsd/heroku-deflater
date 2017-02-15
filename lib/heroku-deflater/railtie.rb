@@ -8,8 +8,10 @@ module HerokuDeflater
     initializer 'heroku_deflater.configure_rails_initialization' do |app|
       app.middleware.insert_before ActionDispatch::Static, Rack::Deflater
       app.middleware.insert_before ActionDispatch::Static, HerokuDeflater::SkipBinary
-      app.middleware.insert_before Rack::Deflater, HerokuDeflater::ServeZippedAssets,
-        app.paths['public'].first, app.config.assets.prefix, self.class.cache_control_manager(app)
+      if defined?(::Sprockets) == "constant"
+        app.middleware.insert_before Rack::Deflater, HerokuDeflater::ServeZippedAssets,
+          app.paths['public'].first, app.config.assets.prefix, self.class.cache_control_manager(app)
+      end
     end
 
     # Set default Cache-Control headers to one week.
