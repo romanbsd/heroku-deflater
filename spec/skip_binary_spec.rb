@@ -21,7 +21,7 @@ describe HerokuDeflater::SkipBinary do
 
   it "allows compressing of text types" do
     %w[text/plain text/html application/json application/javascript
-    application/rss+xml].each do |type|
+    application/rss+xml application/vnd.api+json].each do |type|
       headers = process(type)
       expect(headers['Cache-Control'].to_s).not_to include('no-transform')
     end
