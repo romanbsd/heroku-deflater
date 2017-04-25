@@ -12,7 +12,7 @@ module HerokuDeflater
       @max_age = max_age
       if rails_version_5?
         app.config.public_file_server.headers ||= {}
-        app.config.public_file_server.headers['Cache-Control'] = cache_control
+        app.config.public_file_server.headers['Cache-Control'] ||= cache_control
       else
         app.config.static_cache_control = cache_control
       end

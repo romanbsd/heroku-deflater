@@ -14,7 +14,7 @@ module HerokuDeflater
 
     # Set default Cache-Control headers to one week.
     # The configuration block in config/application.rb overrides this.
-    config.before_configuration do |app|
+    config.before_initialize do |app|
       cache_control = cache_control_manager(app)
       cache_control.setup_max_age(86400)
     end
