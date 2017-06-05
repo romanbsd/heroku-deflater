@@ -20,9 +20,9 @@ module HerokuDeflater
 
     def cache_control_headers
       if rails_version_5?
-        { 'Cache-Control' => cache_control }
+        { 'Cache-Control' => app.config.public_file_server.headers }
       else
-        cache_control
+        app.config.static_cache_control
       end
     end
 
