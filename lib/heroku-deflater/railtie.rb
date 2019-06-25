@@ -12,15 +12,15 @@ module HerokuDeflater
         app.paths['public'].first, app.config.assets.prefix, self.class.cache_control_manager(app)
     end
 
+    def self.cache_control_manager(app)
+      @_cache_control_manager ||= CacheControlManager.new(app)
+    end
+
     # Set default Cache-Control headers to 24 hours.
     # The configuration block in config/application.rb overrides this.
     config.before_initialize do |app|
       cache_control = cache_control_manager(app)
       cache_control.setup_max_age(86400)
-    end
-
-    def self.cache_control_manager(app)
-      @_cache_control_manager ||= CacheControlManager.new(app)
     end
   end
 end
