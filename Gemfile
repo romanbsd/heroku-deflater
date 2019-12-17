@@ -6,5 +6,5 @@ group :development do
   gem "bundler"
   gem "jeweler"
   gem "rspec"
-  gem "rails"
+  gem 'rails', '~>5.2.4'
 end
