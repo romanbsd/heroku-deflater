@@ -6,13 +6,12 @@ require 'action_dispatch/middleware/static'
 #
 # Taken from: https://github.com/mattolson/heroku_rails_deflate
 #
-
 module HerokuDeflater
   class ServeZippedAssets
     def initialize(app, root, assets_path, cache_control_manager)
       @app = app
       @assets_path = assets_path.chomp('/') + '/'
-      if rails_version_5?
+      if HerokuDeflater.rails_version_5?
         @file_handler = ActionDispatch::FileHandler.new(root, headers: cache_control_manager.cache_control_headers)
       else
         @file_handler = ActionDispatch::FileHandler.new(root, cache_control_manager.cache_control_headers)
@@ -52,11 +51,6 @@ module HerokuDeflater
       end
 
       @app.call(env)
-    end
-
-    private
-    def rails_version_5?
-      Rails::VERSION::MAJOR >= 5
     end
   end
 end

@@ -1,5 +1,4 @@
-require 'rack/mock'
-require 'heroku-deflater/skip_binary'
+require 'spec_helper'
 
 describe HerokuDeflater::SkipBinary do
   let(:env) { Rack::MockRequest.env_for('/') }
@@ -36,5 +35,4 @@ describe HerokuDeflater::SkipBinary do
     headers = process('image/gif', 'Cache-Control' => 'public, no-transform')
     expect(headers['Cache-Control']).to eq('public, no-transform')
   end
-
 end
