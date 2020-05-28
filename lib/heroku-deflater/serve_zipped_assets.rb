@@ -8,9 +8,10 @@ require 'action_dispatch/middleware/static'
 #
 module HerokuDeflater
   class ServeZippedAssets
-    def initialize(app, root, assets_path, cache_control_manager)
+    def initialize(app, root, paths, cache_control_manager)
       @app = app
-      @assets_path = assets_path.chomp('/') + '/'
+      @paths = paths.map { |p| p.chomp('/') + '/' }
+
       if HerokuDeflater.rails_version_5?
         @file_handler = ActionDispatch::FileHandler.new(root, headers: cache_control_manager.cache_control_headers)
       else
@@ -27,7 +28,7 @@ module HerokuDeflater
           # See if gzipped version exists in assets directory
           compressed_path = env['PATH_INFO'] + '.gz'
 
-          if compressed_path.start_with?(@assets_path) && (match = @file_handler.match?(compressed_path))
+          if compressed_path.start_with?(*@paths) && (match = @file_handler.match?(compressed_path))
             # Get the FileHandler to serve up the gzipped file, then strip the .gz suffix
             env['PATH_INFO'] = match
             status, headers, body = @file_handler.call(env)

@@ -17,7 +17,7 @@ Jeweler::Tasks.new do |gem|
   gem.name = "heroku-deflater"
   gem.homepage = "http://github.com/romanbsd/heroku-deflater"
   gem.license = "MIT"
-  gem.summary = %Q{Deflate assets on heroku}
+  gem.summary = %Q{Deflate sprockets and webpacker assets on heroku}
   gem.description = gem.summary
   gem.email = "romanbsd@yahoo.com"
   gem.authors = ["Roman Shterenzon"]

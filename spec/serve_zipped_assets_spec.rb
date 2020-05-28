@@ -2,44 +2,46 @@ require 'spec_helper'
 
 describe HerokuDeflater::ServeZippedAssets do
   shared_examples_for 'ServeZippedAssets' do
-    it 'does nothing for clients which do not want gzip' do
-      status, headers, body = process('/assets/spec.js', nil)
-      expect(status).to eq(404)
-    end
+    %w(assets packs).each do |path|
+      it 'does nothing for clients which do not want gzip' do
+        status, headers, body = process("/#{path}/spec.js", nil)
+        expect(status).to eq(404)
+      end
 
-    it 'handles the pre-gzipped assets' do
-      status, headers, body = process('/assets/spec.js')
-      expect(status).to eq(200)
-    end
+      it 'handles the pre-gzipped assets' do
+        status, headers, body = process("/#{path}/spec.js")
+        expect(status).to eq(200)
+      end
 
-    it 'has correct content type' do
-      status, headers, body = process('/assets/spec.js')
-      expect(headers['Content-Type']).to eq('application/javascript')
-    end
+      it 'has correct content type' do
+        status, headers, body = process("/#{path}/spec.js")
+        expect(headers['Content-Type']).to eq('application/javascript')
+      end
 
-    it 'has correct content encoding' do
-      status, headers, body = process('/assets/spec.js')
-      expect(headers['Content-Encoding']).to eq('gzip')
-    end
+      it 'has correct content encoding' do
+        status, headers, body = process("/#{path}/spec.js")
+        expect(headers['Content-Encoding']).to eq('gzip')
+      end
 
-    it 'has correct content length' do
-      status, headers, body = process('/assets/spec.js')
-      expect(headers['Content-Length']).to eq('86')
-    end
+      it 'has correct content length' do
+        status, headers, body = process("/#{path}/spec.js")
+        expect(headers['Content-Length']).to eq('86')
+      end
 
-    it 'has correct cache control' do
-      status, headers, body = process('/assets/spec.js')
-      expect(headers['Cache-Control']).to eq('public, max-age=86400')
-    end
+      it 'has correct cache control' do
+        status, headers, body = process("/#{path}/spec.js")
+        expect(headers['Cache-Control']).to eq('public, max-age=86400')
+      end
 
-    it 'does not serve non-gzipped assets' do
-      status, headers, body = process('/assets/spec2.js')
-      expect(status).to eq(404)
-    end
+      it 'does not serve non-gzipped assets' do
+        status, headers, body = process("/#{path}/spec2.js")
+        expect(status).to eq(404)
+      end
 
-    it 'does not serve anything from non-asset directories' do
-      status, headers, body = process('/non-assets/spec.js')
-      expect(status).to eq(404)
+      it 'does not serve anything from non-asset directories' do
+        status, headers, body = process("/non-#{path}/spec.js")
+        expect(status).to eq(404)
+      end
     end
   end
 
@@ -75,7 +77,7 @@ describe HerokuDeflater::ServeZippedAssets do
       root_path = File.expand_path('../fixtures', __FILE__)
       cache_control_manager = HerokuDeflater::CacheControlManager.new(app)
       mock = lambda { |env| [404, {'X-Cascade' => 'pass'}, []] }
-      described_class.new(mock, root_path, '/assets', cache_control_manager)
+      described_class.new(mock, root_path, ['/assets', '/packs'], cache_control_manager)
     end
   end
 end
