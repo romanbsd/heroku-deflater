@@ -10,7 +10,7 @@ module HerokuDeflater
       app.middleware.insert_before ActionDispatch::Static, HerokuDeflater::SkipBinary
 
       assets_prefix = app.config.assets.prefix if app.config.respond_to?(:assets)
-      webpacker_prefix = Webpacker.config.public_output_path.basename.to_s if const_defined?(:Webpacker)
+      webpacker_prefix = Webpacker.config.public_output_path.basename.to_s if Object.const_defined?(:Webpacker)
 
       if assets_prefix || webpacker_prefix
         paths = [assets_prefix, webpacker_prefix].compact
