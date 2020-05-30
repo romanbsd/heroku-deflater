@@ -8,8 +8,20 @@ module HerokuDeflater
     initializer 'heroku_deflater.configure_rails_initialization' do |app|
       app.middleware.insert_before ActionDispatch::Static, Rack::Deflater
       app.middleware.insert_before ActionDispatch::Static, HerokuDeflater::SkipBinary
-      app.middleware.insert_before Rack::Deflater, HerokuDeflater::ServeZippedAssets,
-        app.paths['public'].first, app.config.assets.prefix, self.class.cache_control_manager(app)
+
+      assets_prefix = app.config.assets.prefix if app.config.respond_to?(:assets)
+
+      if Object.const_defined?(:Webpacker)
+        public_path = Webpacker.config.public_path.to_s
+        public_output_path = Webpacker.config.public_output_path.to_s
+        webpacker_prefix = public_output_path.split(public_path).last
+      end
+
+      if assets_prefix || webpacker_prefix
+        paths = [assets_prefix, webpacker_prefix].compact
+        app.middleware.insert_before Rack::Deflater, HerokuDeflater::ServeZippedAssets,
+          app.paths['public'].first, paths, self.class.cache_control_manager(app)
+      end
     end
 
     def self.cache_control_manager(app)

@@ -13,19 +13,13 @@ module HerokuDeflater
     end
 
     def cache_control_headers
-      if rails_version_5?
+      if HerokuDeflater.rails_version_5?
         headers = app.config.public_file_server.headers ||= {}
         headers['Cache-Control'] ||= "public, max-age=#{max_age}"
+        headers
       else
-        headers = app.config.static_cache_control
+        app.config.static_cache_control ||= "public, max-age=#{max_age}"
       end
-      headers
-    end
-
-    private
-
-    def rails_version_5?
-      Rails::VERSION::MAJOR >= 5
     end
   end
 end
