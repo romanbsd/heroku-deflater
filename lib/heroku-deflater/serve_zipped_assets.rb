@@ -1,6 +1,10 @@
 require 'action_controller'
-require 'active_support/core_ext/uri'
 require 'action_dispatch/middleware/static'
+
+if Rails::VERSION::MAJOR < 7
+  # Deprecated in Rails 7.0, and removed in 7.1
+  require 'active_support/core_ext/uri'
+end
 
 # Adapted from https://gist.github.com/guyboltonking/2152663
 #
