@@ -17,20 +17,20 @@ module HerokuDeflater
 
     def call(env)
       status, headers, body = @app.call(env)
-      headers = Rack::Utils::HeaderHash.new(headers)
-      content_type = headers['Content-Type']
-      cache_control = headers['Cache-Control'].to_s.downcase
+      headers = Rack::Utils::HeaderHash.new(headers) if defined?(Rack::Utils::HeaderHash)
+      content_type = headers['content-type']
+      cache_control = headers['cache-control'].to_s.downcase
 
       unless cache_control.include?('no-transform') || WHITELIST.any? { |type| type === content_type }
         if cache_control.empty?
-          headers['Cache-Control'] = 'no-transform'
+          headers['cache-control'] = 'no-transform'
         else
-          headers['Cache-Control'] += ', no-transform'
+          headers['cache-control'] += ', no-transform'
         end
       end
 
       body.close if body.respond_to?(:close)
-      [status, headers, body]
+      [status, headers.to_h, body]
     end
   end
 end
